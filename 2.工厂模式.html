@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class Dog {
+      constructor() {
+        this.name = '旺旺'
+      }
+    }
+    class Cat {
+      constructor() {
+        this.name = '喵喵'
+      }
+    }
+
+    // 工厂模式
+    function Factory(key) {
+      switch (key) {
+        case 'Dog':
+          return new Dog()
+          break
+        case 'Cat':
+          return new Cat()
+          break
+        default:
+          break
+      }
+    }
+
+    // 使用
+    const ww = Factory('Dog')
+    const mm = Factory('Cat')
+    console.log(ww, mm) // Dog {name: '旺旺'} Cat {name: '喵喵'}
+    console.log(ww.name, mm.name) // 旺旺 喵喵
+  </script>
+</body>
+</html>
