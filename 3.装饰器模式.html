@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class Person {
+      constructor() {
+        this.name = '张三'
+      }
+      song() {
+        // console.log(this.name + ' 唱')
+        console.log(' 唱')
+      }
+    }
+    // 装饰器
+    Person.prototype.Decorator = function(fn) {
+      this.song()
+      fn.apply(this)
+    }
+
+    const zs = new Person()
+    // zs.song()
+    function jump() {
+      console.log(this.name + ' 跳');
+    }
+    zs.Decorator(jump)
+
+    console.log('==============');
+
+    // 装饰者链
+    Function.prototype.Decorator = function(fn) {
+      // 返回一个函数以便链式调用
+      return () => {
+        this()
+        fn()
+      }
+    }
+    function rap() {
+      console.log('rap')
+    }
+    function talk() {
+      console.log('talk')
+    }
+    // 链式调用
+    zs.song.Decorator(rap).Decorator(talk)()
+    
+    console.log('===============');
+
+    // 对 window.onload 进行装饰
+    window.onload = function() {
+      console.log('----onload');
+    }
+    const _onload = window.onload
+
+    window.onload = function() {
+      _onload()
+      console.log('这里做额外处理de一些事情...');
+    }
+  </script>
+</body>
+</html>
