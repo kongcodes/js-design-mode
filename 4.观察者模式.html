@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <button>点击</button>
+
+  <script>
+    document.querySelector('button').addEventListener('click', function(){
+      console.log('click1');
+    })
+    document.querySelector('button').addEventListener('click', function(){
+      console.log('click2');
+    })
+
+    class MyEvent {
+      constructor() {
+        this.handles = {} // 数据格式：{ en1: [fn1, fn2 ...], en2: [fn1, fn2 ...] }
+      }
+      addEvent(eventName, fn) {
+        if(typeof this.handles[eventName] === 'undefined') {
+          // handles 中不包含eventName时
+          this.handles[eventName] = []
+        }
+        this.handles[eventName].push(fn)
+      }
+      trigger(eventName) {
+        if(!(eventName in this.handles)) {
+          return
+        }
+        this.handles[eventName].forEach(fn => {
+          fn()
+        })
+      }
+    }
+
+    const obj = new MyEvent()
+    obj.addEvent('event1', function(){
+      console.log('event1')
+    })
+    obj.addEvent('event1', function(){
+      console.log('event1---')
+    })
+    console.log(obj)
+    // 模拟obj变化时，触发监听的函数
+    setTimeout(function(){
+      obj.trigger('event1') // event1 event1---
+    },2000)
+  </script>
+</body>
+</html>
