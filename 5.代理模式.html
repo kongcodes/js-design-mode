@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class CreateImage {
+      constructor() {
+        this.img = document.createElement('img')
+        document.querySelector('body').append(this.img)
+      }
+      setSrc(src) {
+        this.img.src = src
+      }
+    }
+
+    // let img = new CreateImage()
+    // img.setSrc('https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/img/haidi.ffe5bcf.png')
+  
+    function proxyImg(src) {
+      let img = new CreateImage()
+      let loadingImg = new Image()
+      img.setSrc('./img/loading.gif') // 先显示loading
+      loadingImg.src = src // 准备加载真实图片
+      // 图片加载完成
+      loadingImg.onload = function() {
+        img.setSrc(src) // 把loading替换掉
+      }
+    }
+
+    proxyImg('https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/img/haidi.ffe5bcf.png')
+
+  </script>
+</body>
+</html>
